@@ -8,6 +8,7 @@
     "start": "node demo.js"
   },
   "dependencies": {
-    "better-sqlite3": "^11.0.0"
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
   }
 }

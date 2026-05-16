@@ -1,43 +1,79 @@
+// =====================================================
+// userRepository — UNICO punto di contatto col DB users
+// =====================================================
+// Tutte le funzioni sono async perche' sqlite3+sqlite
+// ritorna Promise. Chi le chiama deve usare await.
+//
+// Tutte le query usano placeholder "?" per protezione
+// anti SQL injection. NESSUNA concatenazione di stringhe.
+
 import db from '../db/connection.js';
 
-export function findByEmail(email) {
-  return db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+export async function findByEmail(email) {
+  return db.get('SELECT * FROM users WHERE email = ?', email);
 }
 
-export function findById(id) {
-  return db.prepare('SELECT * FROM users WHERE id = ?').get(id);
+export async function findById(id) {
+  return db.get('SELECT * FROM users WHERE id = ?', id);
 }
 
-export function findAll() {
-  return db
-    .prepare('SELECT * FROM users ORDER BY created_at DESC')
-    .all();
+export async function findAll() {
+  return db.all('SELECT * FROM users ORDER BY created_at DESC');
 }
 
-export function create({ email, passwordHash, name = null, role = 'user' }) {
-  const info = db
-    .prepare(`
-      INSERT INTO users (email, password_hash, name, role)
-      VALUES (?, ?, ?, ?)
-    `)
-    .run(email, passwordHash, name, role);
-  return findById(info.lastInsertRowid);
+export async function create({ email, passwordHash, name = null, role = 'user' }) {
+  const info = await db.run(
+    `INSERT INTO users (email, password_hash, name, role)
+     VALUES (?, ?, ?, ?)`,
+    email, passwordHash, name, role
+  );
+  // sqlite usa "lastID" (better-sqlite3 lo chiamava "lastInsertRowid")
+  return findById(info.lastID);
 }
 
-export function update(id, data) {
+export async function update(id, data) {
   const fields = [];
   const values = [];
-  if (data.name !== undefined)  { fields.push('name = ?');          values.push(data.name); }
-  if (data.passwordHash)        { fields.push('password_hash = ?'); values.push(data.passwordHash); }
-  if (data.role)                { fields.push('role = ?');          values.push(data.role); }
+
+  if (data.name !== undefined) {
+    fields.push('name = ?');
+    values.push(data.name);
+  }
+  if (data.passwordHash) {
+    fields.push('password_hash = ?');
+    values.push(data.passwordHash);
+  }
+  if (data.role) {
+    fields.push('role = ?');
+    values.push(data.role);
+  }
+
   if (fields.length === 0) return findById(id);
+
   fields.push("updated_at = CURRENT_TIMESTAMP");
   values.push(id);
-  db.prepare(`UPDATE users SET ${fields.join(', ')} WHERE id = ?`).run(...values);
+
+  await db.run(
+    `UPDATE users SET ${fields.join(', ')} WHERE id = ?`,
+    ...values
+  );
   return findById(id);
 }
 
-export function deleteById(id) {
-  const info = db.prepare('DELETE FROM users WHERE id = ?').run(id);
+export async function deleteById(id) {
+  const info = await db.run('DELETE FROM users WHERE id = ?', id);
   return info.changes > 0;
+}
+
+export async function count() {
+  const row = await db.get('SELECT COUNT(*) AS n FROM users');
+  return row.n;
+}
+
+export async function search(nome) {
+  const needle = `%${(nome ?? '').toLowerCase()}%`;
+  return db.all(
+    'SELECT * FROM users WHERE LOWER(name) LIKE ? ORDER BY name',
+    needle
+  );
 }

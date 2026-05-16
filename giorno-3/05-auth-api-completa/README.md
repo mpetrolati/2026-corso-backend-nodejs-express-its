@@ -104,7 +104,7 @@ Niente DB lookup per la verifica del token. Solo cripto. È il superpotere dei J
 
 ### Da SQLite a PostgreSQL
 
-1. `npm uninstall better-sqlite3 && npm install pg`
+1. `npm uninstall sqlite sqlite3 && npm install pg`
 2. Riscrivi **solo** `src/db/connection.js` e `src/repositories/userRepository.js`.
 3. Lo schema SQL è quasi identico (cambia `INTEGER PRIMARY KEY AUTOINCREMENT` in `SERIAL PRIMARY KEY`).
 4. Tutto il resto (route, controller, service, middleware, validatori): **intatto**.

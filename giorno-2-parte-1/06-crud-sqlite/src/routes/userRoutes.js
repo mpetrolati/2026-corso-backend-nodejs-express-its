@@ -22,13 +22,13 @@ function toSafeUser(user) {
 
 // GET /api/users → lista
 router.get('/', asyncHandler(async (req, res) => {
-  const users = userRepository.findAll().map(toSafeUser);
+  const users = (await userRepository.findAll()).map(toSafeUser);
   res.json(users);
 }));
 
 // GET /api/users/:id → singolo
 router.get('/:id', asyncHandler(async (req, res) => {
-  const user = userRepository.findById(req.params.id);
+  const user = await userRepository.findById(req.params.id);
   if (!user) throw new AppError('Utente non trovato', 404);
   res.json(toSafeUser(user));
 }));
@@ -45,7 +45,7 @@ router.post('/', asyncHandler(async (req, res) => {
   // questo pomeriggio con bcrypt. Per ora simuliamo.
   const fakePasswordHash = `not-bcrypt-yet:${password}`;
 
-  const user = userRepository.create({
+  const user = await userRepository.create({
     email,
     passwordHash: fakePasswordHash,
     name: name ?? null
@@ -55,14 +55,14 @@ router.post('/', asyncHandler(async (req, res) => {
 
 // PUT /api/users/:id → aggiorna
 router.put('/:id', asyncHandler(async (req, res) => {
-  const user = userRepository.update(req.params.id, req.body ?? {});
+  const user = await userRepository.update(req.params.id, req.body ?? {});
   if (!user) throw new AppError('Utente non trovato', 404);
   res.json(toSafeUser(user));
 }));
 
 // DELETE /api/users/:id → cancella
 router.delete('/:id', asyncHandler(async (req, res) => {
-  const ok = userRepository.deleteById(req.params.id);
+  const ok = await userRepository.deleteById(req.params.id);
   if (!ok) throw new AppError('Utente non trovato', 404);
   res.sendStatus(204);
 }));

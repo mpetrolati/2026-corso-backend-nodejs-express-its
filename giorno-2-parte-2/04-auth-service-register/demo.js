@@ -10,7 +10,7 @@ import db from './src/db/connection.js';
 import * as authService from './src/services/authService.js';
 
 // Pulisco la tabella per ripartire da zero ad ogni run
-db.exec('DELETE FROM users');
+await db.exec('DELETE FROM users');
 
 console.log('=== Test 1: registrazione valida ===');
 try {
@@ -47,11 +47,13 @@ const admin = await authService.register({
 console.log(admin);
 
 console.log('\n=== Test 4: verifico che la password sia hashata nel DB ===');
-const raw = db.prepare('SELECT email, password_hash FROM users WHERE email = ?')
-              .get('mario@example.com');
+const raw = await db.get(
+  'SELECT email, password_hash FROM users WHERE email = ?',
+  'mario@example.com'
+);
 console.log(`email: ${raw.email}`);
 console.log(`password_hash: ${raw.password_hash}`);
 console.log('(stringa lunga e illeggibile = bcrypt ha fatto il suo lavoro)');
 
-db.close();
+await db.close();
 console.log('\nFatto.');

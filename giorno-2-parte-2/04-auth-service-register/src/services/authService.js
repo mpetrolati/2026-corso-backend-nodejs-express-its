@@ -12,7 +12,7 @@ import { AppError } from '../utils/AppError.js';
 export async function register({ email, password, name = null, role = 'user' }) {
   // 1. C'e' gia' un utente con questa email?
   //    Lo controlliamo PRIMA dell'hash (che e' lento)
-  if (userRepository.findByEmail(email)) {
+  if (await userRepository.findByEmail(email)) {
     throw new AppError('Email gia registrata', 409);
   }
 
@@ -20,7 +20,7 @@ export async function register({ email, password, name = null, role = 'user' }) 
   const passwordHash = await hashPassword(password);
 
   // 3. Scrivo l'utente nel DB
-  const user = userRepository.create({
+  const user = await userRepository.create({
     email,
     passwordHash,
     name,

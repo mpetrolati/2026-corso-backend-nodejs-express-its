@@ -13,8 +13,8 @@ function toSafeUser(user) {
   return safe;
 }
 
-export function getProfile(userId) {
-  const user = userRepository.findById(userId);
+export async function getProfile(userId) {
+  const user = await userRepository.findById(userId);
   if (!user) throw new AppError('Utente non trovato', 404);
   return toSafeUser(user);
 }
@@ -26,12 +26,12 @@ export async function updateProfile(userId, data) {
   if (data.password) patch.passwordHash = await hashPassword(data.password);
   // data.email e data.role vengono IGNORATI (anti parameter pollution)
 
-  const user = userRepository.update(userId, patch);
+  const user = await userRepository.update(userId, patch);
   if (!user) throw new AppError('Utente non trovato', 404);
   return toSafeUser(user);
 }
 
-export function deleteAccount(userId) {
-  const ok = userRepository.deleteById(userId);
+export async function deleteAccount(userId) {
+  const ok = await userRepository.deleteById(userId);
   if (!ok) throw new AppError('Utente non trovato', 404);
 }

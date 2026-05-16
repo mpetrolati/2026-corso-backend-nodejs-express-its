@@ -4,7 +4,7 @@
 // Mette insieme TUTTI i mattoncini del Giorno 2 Parte 1:
 //  - tre tipi di middleware (parsing, logging, error handler)
 //  - error handler centralizzato + AppError + asyncHandler
-//  - SQLite via better-sqlite3
+//  - SQLite via sqlite3 + sqlite (async/await)
 //  - schema users + indice email
 //  - userRepository come unico punto col DB
 

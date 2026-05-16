@@ -11,21 +11,22 @@
 import db from './db/connection.js';
 
 console.log('\n=== Struttura della tabella users ===');
-const columns = db.prepare("PRAGMA table_info('users')").all();
+const columns = await db.all("PRAGMA table_info('users')");
 console.log(columns);
 
 console.log('\n=== Indici sulla tabella users ===');
-const indexes = db.prepare("PRAGMA index_list('users')").all();
+const indexes = await db.all("PRAGMA index_list('users')");
 console.log(indexes);
 
 console.log('\n=== Inserisco un utente di prova ===');
 try {
-  const info = db.prepare(`
-    INSERT INTO users (email, password_hash, name)
-    VALUES (?, ?, ?)
-  `).run('test@example.com', 'finto-hash-non-bcrypt-ancora', 'Test User');
+  const info = await db.run(
+    `INSERT INTO users (email, password_hash, name)
+     VALUES (?, ?, ?)`,
+    'test@example.com', 'finto-hash-non-bcrypt-ancora', 'Test User'
+  );
 
-  console.log('Inserito id:', info.lastInsertRowid);
+  console.log('Inserito id:', info.lastID);
 } catch (err) {
   // Se rilanci lo script una seconda volta, il vincolo UNIQUE
   // su email scatena questo errore. E' esattamente cio' che vogliamo.
@@ -33,9 +34,11 @@ try {
 }
 
 console.log('\n=== Utenti attualmente in tabella ===');
-const users = db.prepare('SELECT id, email, name, role, created_at FROM users').all();
+const users = await db.all(
+  'SELECT id, email, name, role, created_at FROM users'
+);
 console.log(users);
 
-db.close();
+await db.close();
 
 console.log('\nFatto. Apri data/app.db con DB Browser per vedere la tabella.');

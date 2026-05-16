@@ -16,17 +16,17 @@ function toSafeUser(user) {
 }
 
 export async function register({ email, password, name = null, role = 'user' }) {
-  if (userRepository.findByEmail(email)) {
+  if (await userRepository.findByEmail(email)) {
     throw new AppError('Email gia registrata', 409);
   }
   const passwordHash = await hashPassword(password);
-  const user = userRepository.create({ email, passwordHash, name, role });
+  const user = await userRepository.create({ email, passwordHash, name, role });
   return toSafeUser(user);
 }
 
 export async function login({ email, password }) {
   // 1. Cerco l'utente per email
-  const user = userRepository.findByEmail(email);
+  const user = await userRepository.findByEmail(email);
 
   // 2. Non esiste? 401 (NON 404, anti user enumeration)
   if (!user) {

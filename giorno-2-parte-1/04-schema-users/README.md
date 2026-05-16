@@ -60,8 +60,9 @@ Errore (atteso al secondo run): UNIQUE constraint failed: users.email
 
 ## Punti chiave del bootstrap
 
-- `mkdirSync('./data', { recursive: true })` — la cartella deve esistere prima di aprire il DB, altrimenti `better-sqlite3` va in errore.
-- `db.exec(schema)` — esegue uno script SQL multi-statement (perfetto per la DDL).
+- `mkdirSync('./data', { recursive: true })` — la cartella deve esistere prima di aprire il DB, altrimenti `sqlite3` non riesce a creare il file.
+- `await open({ filename, driver: sqlite3.Database })` — apre la connessione e ritorna una Promise (top-level await in ESM).
+- `await db.exec(schema)` — esegue uno script SQL multi-statement (perfetto per la DDL).
 - `IF NOT EXISTS` su tabella e indice — rende l'operazione idempotente, riavviabile a piacere.
 
 ## Per sperimentare

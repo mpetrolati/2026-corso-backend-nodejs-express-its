@@ -1,6 +1,6 @@
 # Corso Node.js + Express + JWT — Codice Giorno 2, Parte 1
 
-Esempi di codice usati durante le prime 2 ore del Giorno 2 del corso, dedicate ai middleware avanzati, all'error handler centralizzato, a SQLite con `better-sqlite3` e al Repository Pattern.
+Esempi di codice usati durante le prime 2 ore del Giorno 2 del corso, dedicate ai middleware avanzati, all'error handler centralizzato, a SQLite con `sqlite3` + `sqlite` e al Repository Pattern.
 
 ## Indice degli esempi
 
@@ -8,7 +8,7 @@ Esempi di codice usati durante le prime 2 ore del Giorno 2 del corso, dedicate a
 |---|---|---|
 | `01-middleware-tipi/` | Application-level, router-level, factory pattern (logger durata, richiediHeader) | Slide 6 |
 | `02-error-handler/` | `AppError`, error handler centralizzato, `asyncHandler` per route async | Slide 10 |
-| `03-sqlite-base/` | Primi passi con `better-sqlite3`: `prepare/get/all/run`, query parametrizzate | Slide 13 |
+| `03-sqlite-base/` | Primi passi con `sqlite3` + `sqlite`: `db.get/.all/.run` con async/await, query parametrizzate | Slide 13 |
 | `04-schema-users/` | `schema.sql` + bootstrap della connessione (file `connection.js`) | Slide 18 |
 | `05-user-repository/` | Il repository completo con `findByEmail`, `findById`, `create`, `update`, `deleteById` | Slide 23 |
 | `06-crud-sqlite/` | Il CRUD del Giorno 1 rifattorizzato su SQLite via repository, con error handler centralizzato | — |
@@ -33,15 +33,14 @@ npm run dev
 
 L'esempio 06 (`06-crud-sqlite`) è il "pezzo forte" della giornata: integra tutti i concetti delle 2 ore in una mini-applicazione funzionante con DB persistente, che useremo come base per il pomeriggio (Parte 2 del Giorno 2).
 
-## Trappola tipica su Windows
+## Driver SQLite usato
 
-`better-sqlite3` è scritto in C++ e viene compilato durante `npm install`. Su macOS/Linux funziona di solito al primo colpo. **Su Windows**, se l'installazione fallisce con errori di compilazione:
+Per evitare problemi di compilazione su Windows, in questo corso usiamo **`sqlite3`** (driver con binari precompilati) combinato col piccolo wrapper **`sqlite`** che espone l'API a Promise/async-await:
 
-1. Installa **Visual Studio Build Tools** (gratuito, dal sito Microsoft).
-2. Riavvia il terminale.
-3. Riprova con `npm install`.
+- `sqlite3` ha i binari precompilati per Windows, macOS e Linux: `npm install` di solito funziona al primo colpo senza Visual Studio Build Tools.
+- `sqlite` trasforma l'API a callback in async/await pulito. Il codice resta vicino a quello che avresti scritto con `better-sqlite3`, ma con `await` davanti.
 
-In alternativa, puoi sostituire `better-sqlite3` con `sqlite3` puro JavaScript (non richiede compilazione) ma è più lento e ha un'API asincrona diversa.
+Se incontri problemi rari di installazione su qualche ambiente, in alternativa puoi provare `node:sqlite` (built-in di Node 22+, sperimentale, richiede `--experimental-sqlite`).
 
 ## Convenzioni del corso
 
