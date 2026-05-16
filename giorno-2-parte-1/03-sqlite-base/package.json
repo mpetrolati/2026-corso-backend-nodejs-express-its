@@ -1,0 +1,13 @@
+{
+  "name": "03-sqlite-base",
+  "version": "1.0.0",
+  "description": "Primi passi con better-sqlite3: prepare/get/all/run, query parametrizzate",
+  "type": "module",
+  "main": "playground.js",
+  "scripts": {
+    "start": "node playground.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0"
+  }
+}

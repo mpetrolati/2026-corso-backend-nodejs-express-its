@@ -1,0 +1,13 @@
+{
+  "name": "05-user-repository",
+  "version": "1.0.0",
+  "description": "Repository pattern: userRepository.js con find/create/update/deleteById",
+  "type": "module",
+  "main": "demo.js",
+  "scripts": {
+    "start": "node demo.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "04-schema-users",
+  "version": "1.0.0",
+  "description": "Schema della tabella users + bootstrap della connessione SQLite",
+  "type": "module",
+  "main": "src/bootstrap.js",
+  "scripts": {
+    "start": "node src/bootstrap.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0"
+  }
+}
