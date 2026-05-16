@@ -1,5 +1,5 @@
 {
-  "name": "02-login-endpoint",
+  "name": "05-auth-api-completa",
   "version": "1.0.0",
   "description": "Auth API completa: register + login + me + Postman collection",
   "type": "module",

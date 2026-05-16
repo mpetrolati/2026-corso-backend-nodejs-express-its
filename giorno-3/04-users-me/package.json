@@ -1,5 +1,5 @@
 {
-  "name": "02-login-endpoint",
+  "name": "04-users-me",
   "version": "1.0.0",
   "description": "POST /api/auth/login con jsonwebtoken e anti-enumeration",
   "type": "module",
