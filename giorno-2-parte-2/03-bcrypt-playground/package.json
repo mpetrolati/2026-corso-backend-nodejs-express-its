@@ -1,0 +1,14 @@
+{
+  "name": "03-bcrypt-playground",
+  "version": "1.0.0",
+  "description": "Playground bcrypt: salt, work factor, hash diversi ma compare sempre true",
+  "type": "module",
+  "main": "playground.js",
+  "scripts": {
+    "start": "node playground.js",
+    "bench": "node benchmark.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1"
+  }
+}

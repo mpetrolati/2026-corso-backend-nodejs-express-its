@@ -1,0 +1,18 @@
+{
+  "name": "01-express-validator",
+  "version": "1.0.0",
+  "description": "Validatori a catena, custom validator, middleware validate",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-validator": "^7.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
