@@ -1,0 +1,12 @@
+{
+  "name": "04-core-modules",
+  "version": "1.0.0",
+  "description": "Carrellata sui moduli core di Node.js",
+  "type": "module",
+  "scripts": {
+    "fs": "node fs-demo.js",
+    "path": "node path-demo.js",
+    "os": "node os-demo.js",
+    "events": "node events-demo.js"
+  }
+}

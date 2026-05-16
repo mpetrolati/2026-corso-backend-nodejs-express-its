@@ -1,0 +1,10 @@
+{
+  "name": "06-http-hello",
+  "version": "1.0.0",
+  "description": "Hello World server con il modulo http nativo",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

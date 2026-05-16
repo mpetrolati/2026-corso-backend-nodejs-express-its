@@ -1,0 +1,10 @@
+{
+  "name": "09-http-post-body",
+  "version": "1.0.0",
+  "description": "Lettura del body in POST (stream + chunk)",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

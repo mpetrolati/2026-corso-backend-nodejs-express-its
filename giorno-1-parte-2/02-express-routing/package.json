@@ -1,0 +1,17 @@
+{
+  "name": "02-express-routing",
+  "version": "1.0.0",
+  "description": "Routing dichiarativo con Express: metodi, parametri, query, body JSON",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

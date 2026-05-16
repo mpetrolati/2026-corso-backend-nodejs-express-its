@@ -1,0 +1,18 @@
+{
+  "name": "05-express-crud-inmem",
+  "version": "1.0.0",
+  "description": "CRUD completo di utenti finti in memoria: scheletro del progetto Auth API",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

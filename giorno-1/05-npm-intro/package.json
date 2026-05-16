@@ -1,0 +1,13 @@
+{
+  "name": "05-npm-intro",
+  "version": "1.0.0",
+  "description": "Primo progetto npm: installazione di una dipendenza esterna",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.0"
+  }
+}

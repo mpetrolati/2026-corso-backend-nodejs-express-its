@@ -1,0 +1,10 @@
+{
+  "name": "07-http-routing",
+  "version": "1.0.0",
+  "description": "Routing manuale con il modulo http",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

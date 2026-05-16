@@ -1,0 +1,17 @@
+{
+  "name": "01-express-hello",
+  "version": "1.0.0",
+  "description": "Primo server Express con ESM e nodemon",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

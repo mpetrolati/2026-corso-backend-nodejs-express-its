@@ -1,0 +1,10 @@
+{
+  "name": "08-http-get-params",
+  "version": "1.0.0",
+  "description": "Lettura parametri GET (query string)",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
