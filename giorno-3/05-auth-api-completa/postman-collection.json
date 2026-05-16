@@ -1,0 +1,111 @@
+{
+  "info": {
+    "name": "Auth API - Corso Node.js + Express + JWT",
+    "description": "Collection completa: register → login → me → update → delete. Include uno script di test che salva il token automaticamente dopo il login.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. POST /auth/register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "auth", "register"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"mario@example.com\",\n  \"password\": \"Password123\",\n  \"name\": \"Mario Rossi\"\n}"
+        }
+      }
+    },
+    {
+      "name": "2. POST /auth/login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const resp = pm.response.json();",
+              "if (resp.token) {",
+              "  pm.collectionVariables.set('token', resp.token);",
+              "  console.log('Token salvato:', resp.token);",
+              "}",
+              "pm.test('Login risponde 200', () => pm.response.to.have.status(200));",
+              "pm.test('Riceve un token', () => {",
+              "  pm.expect(resp.token).to.be.a('string').and.not.empty;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"mario@example.com\",\n  \"password\": \"Password123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "3. GET /users/me",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/api/users/me", "host": ["{{baseUrl}}"], "path": ["api", "users", "me"] }
+      }
+    },
+    {
+      "name": "4. PUT /users/me  (aggiorna name)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": { "raw": "{{baseUrl}}/api/users/me", "host": ["{{baseUrl}}"], "path": ["api", "users", "me"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Mario Junior\"\n}"
+        }
+      }
+    },
+    {
+      "name": "5. GET /users/me  (verifica update)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/api/users/me", "host": ["{{baseUrl}}"], "path": ["api", "users", "me"] }
+      }
+    },
+    {
+      "name": "6. DELETE /users/me",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/api/users/me", "host": ["{{baseUrl}}"], "path": ["api", "users", "me"] }
+      }
+    },
+    {
+      "name": "7. GET /users/me  (404 dopo delete)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/api/users/me", "host": ["{{baseUrl}}"], "path": ["api", "users", "me"] }
+      }
+    }
+  ]
+}

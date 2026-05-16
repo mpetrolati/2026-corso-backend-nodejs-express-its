@@ -1,0 +1,13 @@
+{
+  "name": "01-jwt-base",
+  "version": "1.0.0",
+  "description": "Playground JWT: sign, verify, struttura del token, rotture della firma",
+  "type": "module",
+  "main": "playground.js",
+  "scripts": {
+    "start": "node playground.js"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2"
+  }
+}
