@@ -141,3 +141,6 @@ Se segui il corso in aula, gli esempi vanno guardati nello stesso ordine della l
 ## Licenza
 
 Il codice è rilasciato per scopi didattici. Sentiti libero di clonarlo, modificarlo e riusarlo per progetti tuoi, anche personali.
+
+## Abilitazione scritp da cmd
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
