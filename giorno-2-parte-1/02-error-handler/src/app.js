@@ -51,7 +51,7 @@ app.post('/users', (req, res, next) => {
 app.get('/boom', asyncHandler(async (req, res) => {
   // simulo un'operazione asincrona che fallisce
   await new Promise((_, reject) =>
-    setTimeout(() => reject(new Error('Qualcosa e esploso')), 50)
+    setTimeout(() => reject(new Error('Qualcosa è esploso')), 50)
   );
   res.send('mai raggiunto');
 }));
